@@ -1,0 +1,26 @@
+---
+- name: Deploying Petclic Application
+  hosts: appserver
+
+  vars:
+    petclinic_image: koppula18/petclinic
+    petclinic_tag: 13
+    petclinic_host_port: 8081
+    petclinic_container_port: 8080
+
+  tasks:
+  # tasks file for petclinic java
+  - name: "Start petclinic java container"
+    docker_container:
+      name: petclinic
+      image: "{{ petclinic_image }}:{{ petclinic_tag }}"
+      state: started
+      #memory_swap: "{{ memory_swap }}"
+      #memory: "{{ memory }}"
+      recreate: "yes"
+      restart_policy: always
+      read_only: yes
+      pull: yes
+      ports:
+        - "{{ petclinic_host_port }}:{{ petclinic_container_port }}"
+  #  register: docker_container_result
