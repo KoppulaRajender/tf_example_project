@@ -384,7 +384,7 @@ resource "aws_instance" "jenkins" {
   #  host = aws_instance.webserver.public_ip
   #}
 
-  user_data = file("yum_Jenkins_Ansible.sh")
+  user_data = file("Install_Jenkins_Ansible_Docker.sh")
 
   tags = {
     Name = "Jenkins_From_Terraform"
